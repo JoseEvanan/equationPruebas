@@ -1,0 +1,4 @@
+Django==1.10.5
+django-cors-headers==2.0.1
+latex2mathml==1.1.1
+pkg-resources==0.0.0

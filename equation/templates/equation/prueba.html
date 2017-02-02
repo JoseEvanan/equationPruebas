@@ -1,0 +1,104 @@
+{% load staticfiles %}
+<html lang="es">
+<head>
+
+    <title>MathDox formula editor</title>
+
+	<!--    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>-->
+	<script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  
+
+
+    <h1>{% static 'ckeditor/ckeditor.js' %}</h1>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor.js' %}"></script>
+    <style type="text/css">
+
+      #main {
+        background-color:#FFF;
+        width:50em;
+        font-family:sans-serif;
+      }
+
+      .code {
+        padding-left:2em;
+        font-family:monospace;
+      }
+
+      .formulaeditorinput {
+        margin-right: 2em;
+      }
+    </style>
+
+
+
+</head>
+<body>
+
+
+
+  <input type="text" name="inputText" spellcheck="true">
+</div>
+
+<textarea name="editor1" id="editor1" rows="10" cols="80">
+</textarea>
+Here are my formulas
+
+
+
+<button type="button" id="btn">click aca</button>
+</body>
+
+<script>
+  CKEDITOR.replace( 'editor1', {
+  extraPlugins : 'uploadimage',
+  extraPlugins : 'uploadwidget',
+  extraPlugins : 'widget',
+  extraPlugins : 'filetools',
+  extraPlugins : 'notificationaggregator',
+  extraPlugins : 'notification',
+  extraPlugins : 'lineutils',
+  filebrowserBrowseUrl : '/equation/image/?type=Images',
+  //filebrowserImageBrowseUrl : '/equation/image/?type=Images',
+  filebrowserUploadUrl :  '/equation/upload/?type=Images',
+  //filebrowserImageUploadUrl : '/equation/upload/?type=Images',
+  filebrowserWindowWidth: '640',
+  filebrowserWindowHeight: '480',
+  });
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+
+    $("#btn").click(function(){
+          //var data = CKEDITOR.instances.editor1.getData();
+          //console.log(data);
+          var quests = [];        
+          
+          var i = 1;
+
+          var text = editor.getMathML();
+          console.log(text);
+          $.ajax({
+            type: "GET",
+            url: "/equation/data/",
+            data: {'head': 'heereee', 'equation': text},
+            success: function(response){
+              console.log('Heeeeeerreeeeee');
+              console.log(response)
+
+              console.log()
+            },
+          });
+          
+    });
+  });
+  
+
+</script>
+
+
+
+</html>
+
